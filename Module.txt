@@ -1,0 +1,12 @@
+﻿Name: Hosting - Recipe Remote Executor
+AntiForgery: enabled
+Author: Lombiq
+Website: http://reciperemoteexecutor.codeplex.com/
+Version: 1.0
+OrchardVersion: 1.8
+Description: Lets you execute recipes on a remote Orchard site by providing WebAPI endpoints to send recipes to.
+Features:
+    Lombiq.Hosting.RecipeRemoteExecutor:
+		Name: Hosting - Recipe Remote Executor
+        Description: Lets you execute recipes on a remote Orchard site by providing WebAPI endpoints to send recipes to.
+		Category: Hosting
