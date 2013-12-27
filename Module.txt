@@ -10,3 +10,4 @@ Features:
 		Name: Hosting - Recipe Remote Executor
         Description: Lets you execute recipes on a remote Orchard site by providing WebAPI endpoints to send recipes to.
 		Category: Hosting
+		Dependencies: Piedone.HelpfulLibraries.Authentication, Orchard.ImportExport, Orchard.Recipes
