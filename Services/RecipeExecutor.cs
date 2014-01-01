@@ -8,6 +8,7 @@ using Orchard.Environment;
 using Orchard.Environment.Configuration;
 using Orchard.Environment.Features;
 using Orchard.ImportExport.Services;
+using Autofac;
 
 namespace Lombiq.Hosting.RecipeRemoteExecutor.Services
 {
@@ -52,7 +53,7 @@ namespace Lombiq.Hosting.RecipeRemoteExecutor.Services
 
                 var shellSettings = shellContext.Settings;
                 IWorkContextScope environment;
-                using (environment = _orchardHost.CreateStandaloneEnvironment(shellSettings))
+                using (environment = shellContext.LifetimeScope.Resolve<IWorkContextAccessor>().CreateWorkContextScope())
                 {
                     IImportExportService importExportService;
                     if (!environment.TryResolve<IImportExportService>(out importExportService))
@@ -65,7 +66,7 @@ namespace Lombiq.Hosting.RecipeRemoteExecutor.Services
 
                         featureManager.EnableFeatures(new[] { "Orchard.ImportExport" }, true);
 
-                        // Reloading the shell.
+                        // Reloading the shell. This is costly but unfortunately necessary, just creating a new work context isn't enough.
                         environment.Dispose();
                         environment = _orchardHost.CreateStandaloneEnvironment(shellSettings);
 

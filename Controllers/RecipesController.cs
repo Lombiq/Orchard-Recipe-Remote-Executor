@@ -22,6 +22,7 @@ namespace Lombiq.Hosting.RecipeRemoteExecutor.Controllers
 
         public Localizer T { get; set; }
 
+
         public RecipesController(
             ShellSettings shellSettings,
             IRecipeExecutor recipeExecutor)
