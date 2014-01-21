@@ -47,7 +47,7 @@ namespace Lombiq.Hosting.RecipeRemoteExecutor.Controllers
         {
             if (!recipes.Any()) return StatusCode(HttpStatusCode.NotModified);
 
-            if (_shellSettings.Name != ShellSettings.DefaultName && recipes.First().TenantName != _shellSettings.Name)
+            if (_shellSettings.Name != ShellSettings.DefaultName && recipes.Any(recipe => recipe.TenantName != _shellSettings.Name))
             {
                 return BadRequest(T("You can't execute recipes for other tenants on other than the Default tenant.").Text);
             }
