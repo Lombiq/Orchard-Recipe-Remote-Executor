@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Orchard>
+	<Tenant Name="Default">
+		<Command>
+			
+		</Command>
+	</Tenant>
+	<Tenant Name="TenantName2">
+		<Command>
+			
+		</Command>
+	</Tenant>
+</Orchard>
