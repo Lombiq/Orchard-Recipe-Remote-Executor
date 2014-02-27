@@ -39,6 +39,7 @@ try
 catch
 {
     Write-Host ("`n*****`nERROR WHILE PROCESSING THE COMPOSITE RECIPE!`n*****`n")
+	exit 1
 }
 
 & "$PSScriptRoot\RecipeRemoteExecutorClient.ps1" -HostName $HostName -UserName $UserName -Password $Password -RecipeDataArray $recipes
