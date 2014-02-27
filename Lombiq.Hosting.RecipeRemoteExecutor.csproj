@@ -88,6 +88,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client\CompositeRecipeTemplate.xml" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
     <Content Include="Module.txt" />
@@ -110,7 +111,10 @@
       <Name>Piedone.HelpfulLibraries</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Client\CompositeRecipeRemoteExecutionWrapper.ps1" />
+    <Content Include="Client\RecipeRemoteExecutorClient.ps1" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Models\Api\Recipe.cs" />
