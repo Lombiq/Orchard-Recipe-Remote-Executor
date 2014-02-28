@@ -26,7 +26,7 @@ try
     $compositeRecipe.Load($FilePath)
 
     $recipeTemplateStart = @"
-    <?xml version="1.0"?><Orchard>
+<?xml version="1.0"?><Orchard>
 "@
     $recipeTemplateEnd = "</Orchard>"
 
