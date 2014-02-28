@@ -42,6 +42,6 @@ catch
 	exit 1
 }
 
-& "$PSScriptRoot\RecipeRemoteExecutorClient.ps1" -HostName $HostName -UserName $UserName -Password $Password -RecipeDataArray $recipes
+& "$PSScriptRoot\RecipeRemoteExecutorClient.ps1" -HostName $HostName -UserName $UserName -Password $Password -CompositeRecipeData $recipes
 
 exit $LASTEXITCODE
