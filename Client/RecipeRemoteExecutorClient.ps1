@@ -22,6 +22,7 @@ try
     $payLoad = [System.Text.Encoding]::UTF8.GetBytes($jsonRecipes)
 
     $webRequest = [System.Net.WebRequest]::Create($url)
+    $webRequest.Timeout = 300000
     $webRequest.Headers.Add("AUTHORIZATION", $authentication);
     $webRequest.ContentType = "application/json"
     $webRequest.ContentLength = $payLoad.Length
