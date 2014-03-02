@@ -22,7 +22,7 @@ try
     $payLoad = [System.Text.Encoding]::UTF8.GetBytes($jsonRecipes)
 
     $webRequest = [System.Net.WebRequest]::Create($url)
-    $webRequest.Timeout = 300000
+    $webRequest.Timeout = 300000 # 5 minutes
     $webRequest.Headers.Add("AUTHORIZATION", $authentication);
     $webRequest.ContentType = "application/json"
     $webRequest.ContentLength = $payLoad.Length
@@ -38,11 +38,14 @@ try
     [string] $results = $streamReader.ReadToEnd()
 
     Write-Host $results
+    Write-Host ("`n*****`nNOTIFICATION: RECIPE(S) EXECUTED.`n*****`n")
 }
 catch
 {
-    Write-Host ("`n*****`nERROR WHILE EXECUTING THE RECIPES!`n*****`n")
-    exit 1
+    Write-Host ("`n*****`nERROR WHILE EXECUTING THE RECIPES:`n")
+    Write-Host $_.Exception.Message
+    Write-Host ("*****`n")
+	exit 1
 }
 
 exit 0
