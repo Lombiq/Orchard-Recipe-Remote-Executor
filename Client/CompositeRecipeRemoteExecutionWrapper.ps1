@@ -15,11 +15,13 @@ param
 
 if (!(Test-Path($FilePath)))
 {
-    Write-Host ("`n*****`nCOMPOSITE RECIPE FILE NOT FOUND!`n*****`n")
+    Write-Host ("`n*****`nCOMPOSITE RECIPE FILE AT $FilePath NOT FOUND!`n*****`n")
     exit 1
 }
 
 $compositeRecipe = New-Object XML
+$recipes = @()
+$tenantNames = @()
 
 try
 {
@@ -30,18 +32,32 @@ try
 "@
     $recipeTemplateEnd = "</Orchard>"
 
-    $recipes = @()
     foreach ($tenant in $compositeRecipe.Orchard.ChildNodes)
     {
-        $recipes += ,@{ TenantName = $tenant.Name; RecipeText = $recipeTemplateStart + $tenant.InnerXml + $recipeTemplateEnd }
+        if(!([string]::IsNullOrWhiteSpace($tenant.InnerXml)))
+        {
+            $recipes += @{ TenantName = $tenant.Name; RecipeText = $recipeTemplateStart.Trim() + $tenant.InnerXml + $recipeTemplateEnd }
+            $tenantNames += $tenant.Name            
+        }
     }
 }
-catch
+catch [Exception]
 {
-    Write-Host ("`n*****`nERROR WHILE PROCESSING THE COMPOSITE RECIPE!`n*****`n")
+    Write-Host ("`n*****`nERROR WHILE PROCESSING THE COMPOSITE RECIPE:`n")
+    Write-Host ($_.Exception.Message)
+    Write-Host ("*****`n")
 	exit 1
 }
 
-& "$PSScriptRoot\RecipeRemoteExecutorClient.ps1" -HostName $HostName -UserName $UserName -Password $Password -CompositeRecipeData $recipes
-
-exit $LASTEXITCODE
+if ($recipes.Count -gt 0)
+{
+    $tenantNames = [string]::Join(", ", $tenantNames)
+    Write-Host ("`n*****`nNOTIFICATION: EXECUTING RECIPE ON THE FOLLOWING TENANT(S): $tenantNames.`n*****`n")
+    & "$PSScriptRoot\RecipeRemoteExecutorClient.ps1" -HostName $HostName -UserName $UserName -Password $Password -CompositeRecipeData $recipes
+    exit $LASTEXITCODE
+}
+else
+{
+    Write-Host ("`n*****`nNOTIFICATION: THERE ARE NO RECIPES TO BE EXECUTED.`n*****`n")
+    exit 0
+}
