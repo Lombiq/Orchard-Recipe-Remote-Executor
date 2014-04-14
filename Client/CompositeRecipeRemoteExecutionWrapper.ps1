@@ -13,6 +13,14 @@ param
     [array] $FilePath = $(throw "You need to specify the path to the composite recipe file.")
 )
 
+Add-Type -Language CSharp @"
+public class Recipe
+{
+    public string TenantName;
+    public string RecipeText;
+}
+"@;
+
 if (!(Test-Path($FilePath)))
 {
     Write-Host ("`n*****`nCOMPOSITE RECIPE FILE AT $FilePath NOT FOUND!`n*****`n")
@@ -36,7 +44,11 @@ try
     {
         if(!([string]::IsNullOrWhiteSpace($tenant.InnerXml)))
         {
-            $recipes += @{ TenantName = $tenant.Name; RecipeText = $recipeTemplateStart.Trim() + $tenant.InnerXml + $recipeTemplateEnd }
+            $currentRecipe = New-Object Recipe
+            $currentRecipe.TenantName = $tenant.Name
+            $currentRecipe.RecipeText = $recipeTemplateStart.Trim() + $tenant.InnerXml + $recipeTemplateEnd
+
+            $recipes += $currentRecipe
             $tenantNames += $tenant.Name            
         }
     }
