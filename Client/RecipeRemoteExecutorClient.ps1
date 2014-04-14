@@ -17,7 +17,7 @@ try
 {
     $url = "https://$HostName/api/Lombiq.Hosting.RecipeRemoteExecutor/Recipes/Batch"
     $authentication = "Basic " + [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($UserName + ":" + $Password))
-    $jsonRecipes = ConvertTo-Json($CompositeRecipeData)
+    $jsonRecipes = ConvertTo-Json($CompositeRecipeData) -Compress
 
     $payLoad = [System.Text.Encoding]::UTF8.GetBytes($jsonRecipes)
 
