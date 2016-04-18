@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: Lombiq
 Website: https://github.com/Lombiq/Orchard-Recipe-Remote-Executor
 Version: 1.0
-OrchardVersion: 1.9.2
+OrchardVersion: 1.9.3
 Description: Lets you execute recipes on a remote Orchard site by providing WebAPI endpoints to send recipes to.
 Features:
     Lombiq.Hosting.RecipeRemoteExecutor:
